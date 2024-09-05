@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description"	content="Data Visualisation Exercise 1"/>
+	<meta name="keywords"		  content="HTML, CSS"/>
+	<meta name="author"			  content="Your name here"/>
+
+	<title>Task 2.1 D3 Data Binding</title>
+	
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+</head>
+
+<body>
+
+	<h1>Drawing with Data</h1>
+    <h2>Author: Hoo Ying Kit</h2>
+	
+    <script>
+    //examplefrom Murray
+
+    var w = 500;
+    var h = 150;
+    var barPadding = 3;
+
+    var dataset = [14, 5, 26, 23, 9, 10, 28, 3, 7, 13];
+    //10, 28, 3, 7, 13
+
+    var svg = d3.select("body")
+                .append("svg")
+                .attr("width",w)
+                .attr("height",h)
+                .attr("fill", "rgb(106, 90, 205)");
+   
+    svg.selectAll("rect")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("x", function(d, i) { // i is the index
+            //x(coordinate) rectangles are 20px wide (x=0,20,40,60). So try to use 21px to see a gap between them
+            return i * (w/dataset.length);
+        })
+        .attr("y", function(d){
+            return h - (d*4)
+        }) //y(coordinate) top left start from (0,0)
+        .attr("width", function(d){ //width of the bar
+            return (w/dataset.length-barPadding);
+        })
+        .attr("height", function(d) { //height of the bar
+            return d*4;                 //bottom left start form d*4
+        });
+
+    svg.selectAll("text")
+        .data(dataset)
+        .enter()
+        .append("text")
+        .text(function(d) {
+            return d;
+        })
+        .attr("fill", "black")
+        .attr("x", function(d, i) {
+            return i * (w / dataset.length) + 25;
+        })
+        .attr("y", function(d) {
+            return h - (d*4)
+        });
+
+    </script>
+
+    
+    <br>
+    <bf>
+    <footer style="color:grey">COS30045 Data Visualisation<br>
+        Joe Bloggs</footer>
+    </body>
+
+	
+
+	
+
+
+</html>

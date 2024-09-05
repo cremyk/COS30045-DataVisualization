@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description"	content="Data Visualisation Exercise 1"/>
+	<meta name="keywords"		  content="HTML, CSS"/>
+	<meta name="author"			  content="Your name here"/>
+
+	<title>Task 2.1 D3 Data Binding</title>
+	
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+</head>
+
+<body>
+
+	<h1>The D3 Journey starts here...</h1>
+	
+    <script>
+    //examplefrom Murray
+
+    var dataset = [14, 5, 26, 23, 9];
+
+        d3.select("body").selectAll("p")
+            .data(dataset)
+            .enter()
+            .append("p")
+            .style("color",function(d){
+                if(d>10){
+                    return "red"
+                }
+            })
+            .text(function(d) 
+            {
+                if(d > 10){
+                    return "Warning: NAME watched " + d + " cat videos today.";
+                }
+                else{
+                    return "NAME watched " + d + " cat videos today.";
+                }
+            });
+
+            console.log(d3.selectAll("p"));
+    </script>
+
+    
+    <br>
+    <bf>
+    <footer style="color:grey">COS30045 Data Visualisation<br>
+        Hoo Ying Kit</footer>
+    </body>
+
+	
+
+	
+
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description"	content="Data Visualisation Exercise 1"/>
+	<meta name="keywords"		  content="HTML, CSS"/>
+	<meta name="author"			  content="Your name here"/>
+
+	<title>Task 1.1 HTML and CSS Demo Page</title>
+	<!--Insert description of exercise  -->
+	<link href = "css1.css" rel = "stylesheet"/>
+	<style>
+		
+
+	</style>
+
+</head>
+
+<body>
+
+	<h1>Pets and the Pandemic</h1>
+	<h2>Author: Hoo Ying Kit</h2>
+
+	<p>A report from Animal Medicines Australia (AMA) has found that many Australians took the 
+	   opportunity to introduce a pet into their household during the pandemic. Their survey 
+	   indicated that there was a significant increase in the percent of households taking in 
+	   a new dog, fish or bird. Their research also indicated that pets had a number of positive 
+	   influences on their lives such as:</p>
+
+	<ul>
+		<li>companionship</li>
+		<li>better mental health</li>
+		<li>joy and happiness.</li>
+	</ul>
+
+    <br>
+        <button class = "button1" onclick = "show('int2019.png','Fig 1. Percent of most popular pet owned by Australians in 2019','int2019')" >2019 </button>
+        <button class = "button2" onclick = "show('int2021.png','Fig 2. Percent of most popular pet owned by Australians in 2021','int2021')" >2021 </button>
+        <button class = "button3" onclick = "show('int20192021.png','Fig 3. Percent of most popular pet owned by Australians in 2019 and 2021','int20192021')" >Both </button>
+	
+        <figure>
+            <img id = "ChartImg" style="width:50%" style="display:none">
+            <figcaption id="ChartCap"></figcaption>
+        </figure>
+
+        <!--Update the image, caption and alt of image-->
+        <script>
+            function show (Image,ImgDecs,ImgAlt) {
+                document.getElementById('ChartImg').src=Image
+                document.getElementById('ChartImg').alt=ImgAlt
+                document.getElementById('ChartCap').innerHTML=ImgDecs
+                document.getElementById('ChartImg').style.display='block';
+            }
+        </script>
+
+	<p>With the increase in pet ownership the AMA are encouraging policy makers to consider the needs
+	   of companion animals and their owners when considering rental, strata and body corporate regulations 
+	   are well as accepting animals in public places and transport.</p>
+
+	
+
+	<footer>COS30045 Data Visualisation</footer>
+
+</body>
+</html>
