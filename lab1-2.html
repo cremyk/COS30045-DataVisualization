@@ -10,14 +10,54 @@
 	<title>Task 1.1 HTML and CSS Demo Page</title>
 	<!--Insert description of exercise  -->
 	<link href = "css1.css" rel = "stylesheet"/>
+	
 	<style>
-		
 
+		nav {
+			background-color: #916fa6;
+			overflow: hidden;
+			border-radius: 15px; 
+			margin: 20px auto;    
+			width: 80%;           
+			border: 3px solid #575757;  
+		}
+
+		nav ul {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+			text-align: center;
+		}
+
+		nav ul li {
+			display: inline;
+		}
+
+		nav ul li a {
+			display: inline-block;
+			color: white;
+			padding: 14px 20px;
+			text-decoration: none;
+			font-size: 18px;
+			border-radius: 10px; 
+		}
+
+		nav ul li a:hover {
+			background-color: #c78cf4;
+		}
 	</style>
 
 </head>
 
 <body>
+
+	<nav>
+		<ul>
+			<li><a href="../MainPage.html">Main Page</a></li>
+			<li><a href="lab1-1.html">1-1</a></li>
+			<li><a href="lab1-3.html">1-3</a></li>
+		</ul>
+	</nav>
 
 	<h1>Pets and the Pandemic</h1>
 	<h2>Author: Hoo Ying Kit</h2>
