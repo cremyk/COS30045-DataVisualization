@@ -5,7 +5,8 @@ function init(){
         wombatSightings = data;
 
         barChart(wombatSightings);
-    })
+        addTextLabels(wombatSightings);
+    });
 
     var w = 500;
     var h = 150;
@@ -28,7 +29,7 @@ function init(){
             return i * (w/wombatSightings.length);
         })
         .attr("y", function(d){
-            return h - (d.wombats*4)
+            return h - (d.wombats*4);
         })
         //width and height of the bar chart
         .attr("width", function(d){
@@ -41,7 +42,9 @@ function init(){
         .attr("fill", function(d){
             return "rgb(135, 206, " + (d.wombats * 8) + ")";
         });
+    }
 
+    function addTextLabels(wombatSightings) {
         svg.selectAll("text")
         .data(wombatSightings)
         .enter()
@@ -51,11 +54,11 @@ function init(){
         })
         .attr("fill", "black")
         .attr("x", function(d, i) {
-            return i * (w / wombatSightings.length) + 10.5;
+            return i * (w / wombatSightings.length) + 12;
         })
         .attr("y", function(d){
             return h - (d.wombats * 4)+12;
-        })
+        });
         
     }
 }

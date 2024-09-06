@@ -1,5 +1,8 @@
 body {
-  background-color: #E6E6FA;
+  background-image: url("bgpic.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 h1 {
