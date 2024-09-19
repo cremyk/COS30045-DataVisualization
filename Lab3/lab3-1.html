@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description"	content="Data Visualisation Exercise 1"/>
+	<meta name="keywords"		  content="HTML, CSS"/>
+	<meta name="author"			  content="Your name here"/>
+
+	<title>Task 2.1 D3 Data Binding</title>
+	
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+        
+        nav {
+			text-align: left;
+			margin: 20px auto;
+		}
+
+		nav button {
+			background-color: #916fa6;
+			border: 3px solid #575757;
+			color: white;
+			padding: 14px 20px;
+			font-size: 18px;
+			border-radius: 10px;
+			cursor: pointer;
+			margin: 5px;
+			text-decoration: none;
+		}
+
+		nav button:hover {
+			background-color: #c78cf4;
+		}
+
+		button {
+			border: none;
+			outline: none;
+			cursor: pointer;
+			background: none;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<nav>
+		<a href="..\main.html"><button>Main Page</button></a>
+		<a href="lab3-2.html"><button>3-2</button></a>
+	</nav>
+
+	<h1>Drawing with Data</h1>
+    <h2>Author: Hoo Ying Kit</h2>
+	
+    <script>
+    //examplefrom Murray
+
+    var w = 800;
+    var h = 160;
+    var padding = 30;
+    
+    var svg = d3.select("body")
+                .append("svg")
+                .attr("width",w)
+                .attr("height",h)
+                
+    var dataset = [
+                    [5, 20, 5],
+                    [500, 90, 5],
+                    [250, 50, 10],
+                    [100, 33, 5],
+                    [330, 95, 6],
+                    [410, 12, 3],
+                    [475, 44, 10],
+                    [25, 67, 5],
+                    [85, 21, 5],
+                    [220, 88, 10]
+                    ];
+
+    //worked example from Murray
+    var xScale = d3.scaleLinear()
+                    .domain([d3.min(dataset, function(d) {
+                        return d[0];
+                    }),
+                    d3.max(dataset, function(d) {
+                        return d[0];
+                    })])
+                    .range([padding, w - padding - 120]);
+
+    var yScale = d3.scaleLinear()
+                    .domain([d3.min(dataset, function(d) {
+                        return d[1];
+                    }),
+                    d3.max(dataset, function(d) {
+                        return d[1];
+                    })])
+                    .range([h - padding, padding]);
+
+    var svg = d3.select("body")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h);
+   
+    svg.selectAll("circle")
+        .data(dataset)
+        .enter()
+        .append("circle")
+        //The cx and cy attribute define the x and y coordinates of the center of the circle.
+        //If cx and cy are ommited, the circle's is set to (0,0).
+        .attr("cx", function(d, i) {
+            return xScale(d[0]);
+        })
+        .attr("cy", function(d){
+            return yScale(d[1]);
+        })
+        .attr("r", function(d) {
+            return d[2];
+        })
+        .attr("fill", function(d) {
+            return d[0] === 500 ? "red" : "rgb(49, 145, 0)";
+        });
+
+    svg.selectAll("text")
+        .data(dataset)
+        .enter()
+        .append("text")
+        // return the value of x coordinate and y coordinate
+        .text(function(d) {
+            return d[0] + "," + d[1];
+        })
+        //position of the x coordinate and y coordinate 
+        .attr("x", function(d) {
+            return xScale(d[0]) + 10;
+        })
+        .attr("y", function(d) {
+            return yScale(d[1]) - 1;
+        })
+        .attr("fill", "green");
+
+    </script>
+
+    
+    <br>
+    
+    <footer style="color:grey">COS30045 Data Visualisation<br>
+        Hoo Ying Kit</footer>
+    </body>
+
+	
+
+	
+
+
+</html>
