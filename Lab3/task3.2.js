@@ -75,18 +75,18 @@
         .call(yAxis); //draw the y-axis using the defined yScale
 
     // Adding x-axis label
-    svg.append("text") //append a text element
-        .attr("text-anchor", "end") //align the text in the middle
-        .attr("x", w - 150) //position it horizontally in the center of the SVG
-        .attr("y", h - 10) //position it vertically, just below the x-axis
+    svg.append("text") 
+        .attr("text-anchor", "end") 
+        .attr("x", w - 150) 
+        .attr("y", h - 10) 
         .text("Tree Age (year)"); //the label text
         
     // Adding y-axis label
-    svg.append("text") //append a text element
-        .attr("text-anchor", "end") //align the text in the middle
+    svg.append("text") 
+        .attr("text-anchor", "end") 
         .attr("transform", "rotate(-90)") //rotate the text by -90 degrees to align with the y-axis
-        .attr("y", 0) //position it just left of the y-axis
-        .attr("x", -50) //position it horizontally in the center of the y-axis
+        .attr("y", 0) 
+        .attr("x", -50) 
         .attr("dy", ".75em")
         .text("Tree Height (m)"); //the label text
 
