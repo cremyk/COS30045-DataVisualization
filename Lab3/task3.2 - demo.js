@@ -1,18 +1,18 @@
     var w = 800; //width of the SVG canvas
-    var h = 160; //hieght of the SVG canvas
-    var padding = 30; //padding around the canvas for axes
+    var h = 360; //hieght of the SVG canvas
+    var padding = 60; //padding around the canvas for axes
                 
     var dataset = [
-                    [5, 20, 5],
-                    [500, 90, 5],
-                    [250, 50, 10],
-                    [100, 33, 5],
-                    [330, 95, 6],
-                    [410, 12, 3],
-                    [475, 44, 10],
-                    [25, 67, 5],
-                    [85, 21, 5],
-                    [220, 88, 10]
+                    [2, 8, 5],
+                    [3, 5, 5],
+                    [5, 17, 10],
+                    [6, 6, 5],
+                    [6, 12, 6],
+                    [7, 20, 3],
+                    [8, 22, 10],
+                    [10, 11, 5],
+                    [5, 12, 5],
+                    [6, 16, 10]
                     ]; //array of datapoints : [x,y,radius] for circles
 
     //xScale - scales the x-values of the dataset to fit within the canvas width, considering padding
@@ -74,7 +74,21 @@
         .attr("transform", "translate(" + padding + ", 0)") //move the y-axis to the left side of the canvas
         .call(yAxis); //draw the y-axis using the defined yScale
 
-
+    // Adding x-axis label
+    svg.append("text") 
+        .attr("text-anchor", "end") 
+        .attr("x", w - 180) 
+        .attr("y", h - 10) 
+        .text("Tree Age (year)"); //the label text
+        
+    // Adding y-axis label
+    svg.append("text") 
+        .attr("text-anchor", "end") 
+        .attr("transform", "rotate(-90)") //rotate the text by -90 degrees to align with the y-axis
+        .attr("y", 10) 
+        .attr("x", -60) 
+        .attr("dy", ".75em")
+        .text("Tree Height (m)"); //the label text
 
 
 
