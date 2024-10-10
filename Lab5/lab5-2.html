@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description"	content="Data Visualisation Exercise 1"/>
+	<meta name="keywords"		  content="HTML, CSS, D3"/>
+	<meta name="author"			  content="Hoo Ying Kit"/>
+
+	<title>Task 5.2 D3 Transition</title>
+	
+	<script src= "https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+	<style>
+        
+		nav {
+			text-align: left;
+			margin: 20px auto;
+		}
+	
+		nav button {
+			background-color: #916fa6;
+			border: 3px solid #575757;
+			color: white;
+			padding: 14px 20px;
+			font-size: 18px;
+			border-radius: 10px;
+			cursor: pointer;
+			margin: 5px;
+			text-decoration: none;
+		}
+	
+		nav button:hover {
+			background-color: #c78cf4;
+		}
+	
+		button {
+			border: none;
+			outline: none;
+			cursor: pointer;
+			background: none;
+		}
+
+		#updatebutton {
+		padding: 5px 10px;         
+		border: 2px solid rgb(57, 57, 157);     
+		background-color: white;    
+		color: black;                
+		font-size: 16px;            
+		cursor: pointer;  
+		}
+
+		#updatebutton:hover {
+		background-color: rgb(157, 157, 208);     
+		color: white;               
+		}	
+
+		#transition1 {
+		padding: 5px 10px;         
+		border: 2px solid rgb(57, 57, 157);     
+		background-color: white;    
+		color: black;                
+		font-size: 16px;            
+		cursor: pointer;  
+		}
+
+		#transition1:hover {
+		background-color: rgb(157, 157, 208);     
+		color: white;               
+		}	
+
+		#transition2 {
+		padding: 5px 10px;         
+		border: 2px solid rgb(57, 57, 157);     
+		background-color: white;    
+		color: black;                
+		font-size: 16px;            
+		cursor: pointer;  
+		}
+
+		#transition2:hover {
+		background-color: rgb(157, 157, 208);     
+		color: white;               
+		}	
+	</style>
+	</head>
+	
+	<body>
+	
+	<nav>
+		<a href="..\index.html"><button>Main Page</button></a>
+		<a href="lab5-1.html"><button>5-1</button></a>
+		<a href="lab5-3.html"><button>5-3</button></a>
+	</nav>
+	
+    <article class="content">
+
+	<h1>Updates and Transitions</h1>
+    <h2>Author: Hoo Ying Kit</h2>
+
+    <br>
+
+    <button id="updatebutton">Update Once</button>
+	<button id="transition1">Transition 1</button>
+	<button id="transition2">Transition 2</button>
+
+	<br>
+	<br>
+	<script src="task5.2.js"></script>
+	
+	<br>
+	<footer>COS30045 Data Visualisation <br> Hoo Ying Kit</footer>
+    
+    </article>
+	
+</body>
+</html>
