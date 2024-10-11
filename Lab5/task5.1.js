@@ -39,23 +39,6 @@ svg1.selectAll("rect")
     })
     .attr("fill", "rgb(106, 90, 205)"); //set initial bar colour
 
-//draw initial labels
-svg1.selectAll("text")
-    .data(dataset)
-    .enter()
-    .append("text")
-    .text(function(d) {
-        return d;
-    })
-    .attr("fill", "black")
-    .attr("text-anchor", "middle")
-    .attr("x", function(d, i) {
-        return xScale(i) + xScale.bandwidth() / 2;
-    })
-    .attr("y", function(d) {
-        return h - yScale(d) + 14;
-    });
-
 //update button event
 d3.select("#updatebutton").on("click", function() {
     //update dataset with random values
@@ -82,16 +65,5 @@ d3.select("#updatebutton").on("click", function() {
             return yScale(d);
         });
 
-    //update labels
-    svg1.selectAll("text")
-        .data(dataset)
-        .text(function(d) {
-            return d;
-        })
-        .attr("x", function(d, i) {
-            return xScale(i) + xScale.bandwidth() / 2;
-        })
-        .attr("y", function(d) {
-            return h - yScale(d) + 14;
-        });
+    
 });

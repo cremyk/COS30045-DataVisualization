@@ -39,22 +39,6 @@ svg1.selectAll("rect")
     })
     .attr("fill", "rgb(106, 90, 205)"); //set initial bar colour
 
-//draw initial labels
-svg1.selectAll("text")
-    .data(dataset)
-    .enter()
-    .append("text")
-    .text(function(d) {
-        return d;
-    })
-    .attr("fill", "black")
-    .attr("text-anchor", "middle")
-    .attr("x", function(d, i) {
-        return xScale(i) + xScale.bandwidth() / 2;
-    })
-    .attr("y", function(d) {
-        return h - yScale(d) + 14;
-    });
 
 //function update with random values
 function updateData() {
@@ -87,25 +71,6 @@ function updateData() {
         .attr("height", function(d) {
             return yScale(d);
         });
-
-    //update labels with animation
-    svg1.selectAll("text")
-        .data(dataset)
-        .transition()
-        .delay(function(d,i) {
-            return i * 100;
-        })
-        .duration(1000)
-        .ease(d3.easeCubicInOut)
-        .text(function(d) {
-            return d;
-        })
-        .attr("x", function(d, i) {
-            return xScale(i) + xScale.bandwidth() / 2;
-        })
-        .attr("y", function(d) {
-            return h - yScale(d) + 14;
-        });
 }
 
 //update button event
@@ -132,25 +97,6 @@ d3.select("#transition1").on("click", function() {
         .attr("height", function(d) {
             return yScale(d);
         });
-
-    //update label
-    svg1.selectAll("text")
-        .data(dataset)
-        .transition()
-        .delay(function(d,i) {
-            return i * 30;
-        })
-        .duration(500)
-        .ease(d3.easeCubicInOut)
-        .text(function(d) {
-            return d;
-        })
-        .attr("x", function(d, i) {
-            return xScale(i) + xScale.bandwidth() / 2;
-        })
-        .attr("y", function(d) {
-            return h - yScale(d) + 14;
-        });
 });
 
 //transitions button 2
@@ -162,34 +108,15 @@ d3.select("#transition2").on("click", function() {
         .data(dataset)
         .transition()
         .delay(function(d,i) {
-            return i * 300 ; //slower staggered effect
+            return i * 600 ; //slower staggered effect
         })
-        .duration(2000) //longer duration for slower transition
+        .duration(5000) //longer duration for slower transition
         .ease(d3.easeCubicInOut)
         .attr("y", function(d) {
             return h - yScale(d);
         })
         .attr("height", function(d) {
             return yScale(d);
-        });
-
-    //update label
-    svg1.selectAll("text")
-        .data(dataset)
-        .transition()
-        .delay(function(d,i) {
-            return i * 300;
-        })
-        .duration(2000)
-        .ease(d3.easeCubicInOut)
-        .text(function(d) {
-            return d;
-        })
-        .attr("x", function(d, i) {
-            return xScale(i) + xScale.bandwidth() / 2;
-        })
-        .attr("y", function(d) {
-            return h - yScale(d) + 14;
         });
 });
 
