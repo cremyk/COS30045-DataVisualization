@@ -1,19 +1,11 @@
-function init() {
+d3.csv("Unemployment_78-95.csv", function(d) {
+    d.date = new Date(d.year, +d.month-1); // corrected to Date
+    d.number = +d.number;
+    return d;
+}).then(function(data) {
     var w = 600;
     var h = 300;
-    var padding = 50;
-    var dataset;
-
-    d3.csv("Unemployment_78-95.csv", function(d) {
-        return {
-            date: new Date(+d.year, +d.month-1),
-            number: +d.number
-        };
-    }).then(function(data) {
-        dataset = data;
-
-        console.table(dataset, ["date", "number"]); //print the data to the console
-    
+    var padding = 60;
     
     //set up the svg and path
     var svg = d3.select("#chart")
@@ -35,12 +27,12 @@ function init() {
                     .range([h - padding, padding]);  
                     
     //set up the line
-    line = d3.line()
+    var line = d3.line()
                 .x(function(d) { return xScale(d.date); })
                 .y(function(d) { return yScale(d.number); });
 
     //set up the area
-    area = d3.area()
+    var area = d3.area()
             .x(function(d) { return xScale(d.date); })
 
             //base line for area shape
@@ -56,9 +48,8 @@ function init() {
     //append the area path
     svg.append("path")
         .datum(dataset)
-        .attr("class", "area")
         .attr("d", area)
-        .attr("fill", "#90c3d4");
+        .attr("fill", "lightblue");
 
     //X-axis
     var xAxis = d3.axisBottom(xScale);
@@ -89,7 +80,7 @@ function init() {
         .text("Half a million unemployed");
 
     });
-}
+
 window.onload = init;
 
     
