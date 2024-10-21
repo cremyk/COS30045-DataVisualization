@@ -27,8 +27,9 @@ var arcs = svg.selectAll("g.arc")
 //draw arcpaths
 arcs.append("path")
     .attr("fill", function(d, i) {
-        return arc(d, i);
-    });
+        return color(i);
+    })
+    .attr("d", arc); //generate arc shapes
 
 //colour scale
 var color = d3.scaleOrdinal(d3.schemeCategory10);
@@ -40,5 +41,5 @@ arcs.append("text")
     })
     .attr("text-anchor", "middle")
     .text(function(d) {
-        return getComputedStyle.value;
+        return d.value;
     });
