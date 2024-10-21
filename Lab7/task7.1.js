@@ -1,4 +1,4 @@
-d3.csv("Lab7\Unemployment_78-95.csv", function(d) {
+d3.csv("Unemployment_78-95.csv", function(d) {
     d.date = new Date(d.year, +d.month-1); // corrected to Date
     d.number = +d.number;
     return d;
