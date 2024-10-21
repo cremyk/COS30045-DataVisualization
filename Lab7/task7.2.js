@@ -10,6 +10,9 @@ var arc = d3.arc()
             .innerRadius(innerRadius)
             .outerRadius(outerRadius);
 
+//colour scale
+var color = d3.scaleOrdinal(d3.schemeCategory10);
+
 //create svg element
 var svg = d3.select("body")
             .append("svg")
@@ -31,9 +34,6 @@ arcs.append("path")
     })
     .attr("d", arc); //generate arc shapes
 
-//colour scale
-var color = d3.scaleOrdinal(d3.schemeCategory10);
-
 //text label for each wedge
 arcs.append("text")
     .attr("transform", function(d) {
@@ -41,5 +41,5 @@ arcs.append("text")
     })
     .attr("text-anchor", "middle")
     .text(function(d) {
-        return d.data;
+        return d.value;
     });
