@@ -6,6 +6,9 @@ var dataset = [
     { apples: 23, oranges: 17, grapes: 43}
 ]
 
+var w = 300;
+var h = 300;
+
 //set up stack method
 var stack = d3.stack()
                 .keys([ "apples", "oranges", "grapes" ])
@@ -21,6 +24,10 @@ var series= stack(dataset);
     [ [ 15, 37], [ 16, 44], [ 21, 53], [ 30, 65], [ 40, 83] ], //apples
 ]
 
+//define the color scale
+var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+
 //create svg
 var svg = d3.select("article.content")
             .append("svg")
@@ -35,6 +42,19 @@ var groups = svg.selectAll("g")
                 .style("fill", function(d, i) {
                     return colors(i);
                 });
+
+var xScale = d3.scaleBand()
+                .domain(d3.range(dataset.length)) 
+                .range([0, w])
+                .padding(0.1); //add space between bars
+
+
+var yScale = d3.scaleLinear()
+                .domain([0, d3.max(dataset, function(d) {
+                    return d.apples + d.oranges + d.grapes;
+                    })
+                ])
+                .range([h, 0]);
 
 //add rect for each data value
 var rects = groups.selectAll("rect")
@@ -52,9 +72,3 @@ var rects = groups.selectAll("rect")
                     })
                     .attr("width", xScale.bandwidth());
 
-var yScale = d3.scaleLinear()
-                .domain([0, d3.max(dataset2, function(d) {
-                    return d.apples + d.oranges + d.grapes;
-                    })
-                ])
-                .range([h, 0]);
