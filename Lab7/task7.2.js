@@ -38,10 +38,10 @@ arcs.append("path")
 
 // Add text labels for each wedge
 arcs.append("text")
+    .text(function(d) {
+        return d.value; // Display the value of each slice (this comes from the pie layout)
+    })
     .attr("transform", function(d) {
         return "translate(" + arc.centroid(d) + ")"; // Position the text in the center of each wedge
     })
-    .attr("text-anchor", "middle")
-    .text(function(d) {
-        return d.value; // Display the value of each slice (this comes from the pie layout)
-    });
+    
