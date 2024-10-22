@@ -9,7 +9,7 @@ var dataset = [
 //set width, height for the chart
 var w = 500;
 var h = 400;
-
+var padding = 60;
 
 //define the color scale
 var color = d3.scaleOrdinal(d3.schemeCategory10);
