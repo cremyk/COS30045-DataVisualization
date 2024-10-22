@@ -81,10 +81,7 @@ function init() {
 
     //add victorian towns and cities
     d3.csv("VIC_city.csv").then(function(cityData) {
-        data.forEach(function(d) {
-            d.lon = +d.lon;
-            d.lat = +d.lat;
-        });
+        
 
     
 
