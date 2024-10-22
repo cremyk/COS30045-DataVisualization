@@ -16,7 +16,7 @@ var arc = d3.arc()
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 
 // Create the SVG element
-var svg = d3.select("body")
+var svg = d3.select("article.content")
             .append("svg")
             .attr("width", w)
             .attr("height", h);
