@@ -33,7 +33,7 @@ function init() {
         ]);
 
     //load in GeoJSON data
-    d3.json("LGA_VIC.json", function(json) { 
+    d3.json("LGA_VIC.json").then(function(json) { 
 
         //merge the og. data and GeoJSON
         //loop through once for each og. data value
