@@ -71,7 +71,7 @@ function init() {
 
             if (value) {
                 //if value exists
-                return color(vlue);
+                return color(value);
             } else {
                 //if value is undefined
                 return "#ccc";
@@ -90,7 +90,7 @@ function init() {
 
     //add position for each circle 
     svg.selectAll("circle")
-        .data(data)
+        .data(cityData)
         .enter()
         .append("circle")
         .attr("cx", function(d) {
