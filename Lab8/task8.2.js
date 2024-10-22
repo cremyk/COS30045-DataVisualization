@@ -1,122 +1,94 @@
-function init() {
-    //width and height
-    var w = 500;
-    var h = 300;
+var width = 600;
+var height = 400;
+var margin = 50;
 
-    var projection = d3.geoMercator()
-                        .center([145, -36.5])
-                        .translate([w / 2, h / 2])
-                        .scale(3000);
+var w = width - margin;
+var h = height - margin*2;
 
-    //define path generator
-    var path = d3.geoPath()
-                .projection(projection);
+var color = d3.scaleQuantize()
+            .range(["#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"]);
+var svg = d3.select("#chart")
+            .append("svg")
+            .attr("width",width)
+            .attr("height",height);
 
-    //set the colour range
-    var color = d3.scaleQuantize()
-                    .range(["rgb(242,240,247)", "rgb(203,201,226)",
-                        "rgb(158,154,200)", "rgb(117,107,177)", "rgb(84,39,143)"]);
+var projection=d3.geoMercator()
+                .center([145,-36.5])
+                .translate([w/2,h/2])
+                .scale(2450);
 
-    //create svg
-    var svg = d3.select("#MapOnPage")
-                .append("svg")
-                .attr("width", w)
-                .attr("height", h)
-                .attr("fill", "steelblue");
+var path = d3.geoPath()
+            .projection(projection);
 
-    // Tooltip for circles
-    var tooltip = d3.select("body").append("div")
-                    .style("position", "absolute")
-                    .style("background-color", "white")
-                    .style("border", "solid 1px #ccc")
-                    .style("border-radius", "5px")
-                    .style("padding", "5px")
-                    .style("display", "none");
+ // Tooltip Box
+var tooltip = d3.select("body").append("div")
+                .style("position", "absolute")
+                .style("background-color", "white")
+                .style("border", "solid")
+                .style("border-width", "1px")
+                .style("border-radius", "5px")
+                .style("padding", "5px")
+                .style("display","none");
 
-    //load unemployement csv
-    d3.csv("VIC_LGA_unemployment.csv").then(function(data) {
-        //set color domain based on data values
-        color.domain([
-            d3.min(data, function(d) { return d.value; }),
-            d3.max(data, function(d) { return d.value; })
-        ]);
+d3.csv("VIC_LGA_unemployment.csv").then(function (dataset){
+    d3.json("LGA_VIC.json").then(function(json){
+        for (var i = 0;i < dataset.length;i++){
+            var dataLGA = dataset[i].LGA;
+            var dataUnemployed = parseFloat(dataset[i].unemployed);
 
-    //load in GeoJSON data
-    d3.json("LGA_VIC.json").then(function(json) { 
+            for (var j=0;j < json.features.length;j++){
+                var jsonLGA = json.features[j].properties.LGA_name;
 
-        //merge the og. data and GeoJSON
-        for (var i = 0; i < data.length; i++) {
-            var dataState = data[i].state;
-            var dataValue = parseFloat(data[i].value);
-
-            //find the corresponding state inside the GeoJSON
-            for (var j = 0; j < json.features.length; j++) {
-                var jsonState = json.features[j].properties.name;
-
-                if (dataState == jsonState) {
-                    //copy the data value into JSON
-                    json.features[j].properties.value = dataValue;
-
-                    //stop looking through the JSON
+                if(dataLGA === jsonLGA){
+                    json.features[j].properties.unemployed = dataUnemployed;
                     break;
                 }
             }
         }
+        color.domain([
+            d3.min(json.features, function(d) { return +d.properties.unemployed; }),
+            d3.max(json.features, function(d) { return +d.properties.unemployed; })
+        ]);
 
-        //create path
         svg.selectAll("path")
-            .data(json.features)
-            .enter()
-            .append("path")
-            .attr("d", path)
-            .style("fill", function(d) {
-                //get data value
-                var value = d.properties.value;
-                if (value) {
-                    //if value exists
-                    return color(value);
-                } else {
-                    //if value is undefined
-                    return "#ccc";
-                }
-            });
+        .data(json.features)
+        .enter()
+        .append("path")
+        .attr("d",path)
+        .attr("fill",function(d){
+            var value=d.properties.unemployed;
+            return value ? color(value) : "#ccc";
+        });
 
-        //add victorian towns and cities
-        d3.csv("VIC_city.csv").then(function(cityData) {
-
-            //add position for each circle 
+        d3.csv("VIC_city.csv").then(function(circleData){
             svg.selectAll("circle")
-                .data(cityData)
+                .data(circleData)
                 .enter()
                 .append("circle")
-                .attr("cx", function(d) {
-                    return projection([d.lon, d.lat])[0];
+                .attr("cx",function(d){
+                    return projection([d.lon,d.lat])[0];
                 })
-                .attr("cy", function(d) {
-                    return projection([d.lon, d.lat])[1];
+                .attr("cy",function(d){
+                    return projection([d.lon,d.lat])[1];
                 })
-                .attr("r", function(d) {
-                    return Math.sqrt(parseInt(d.population)) * 0.02;
-                })
-                .style("fill", "yellow")
-                .style("stroke", "gray")
-                .style("stroke-width", 0.25)
-                .style("opacity", 0.75)
-                // Tooltip interaction
-                .on("mouseover", function(event, d) {
+                .attr("r",3)
+                .attr("fill","red")
+                .on("mouseover", function (event, d) {
                     tooltip.style("display", "block");
-                    tooltip.html(d.place + ": Pop. " + d.population);
+                    tooltip.html("City: " + d.place)
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 15) + "px");
                 })
-                .on("mousemove", function(event) {
+                .on("mousemove", function (event) {
                     tooltip.style("left", (event.pageX + 10) + "px")
-                           .style("top", (event.pageY - 20) + "px");
+                        .style("top", (event.pageY - 15) + "px");
                 })
-                .on("mouseout", function() {
+                .on("mouseout", function () {
                     tooltip.style("display", "none");
-                });
-        });
+                });;
+        })
+      
     });
-    });
-}
 
-window.onload = init;
+      
+});
