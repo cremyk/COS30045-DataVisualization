@@ -33,7 +33,7 @@ function init() {
         ]);
 
     //load in GeoJSON data
-    d3.json("VIC_LGA_unemployment.csv"), (function(json) { 
+    d3.json("VIC_LGA_unemployment.csv").then(function(json) { 
 
         //merge the og. data and GeoJSON
         //loop through once for each og. data value
@@ -112,5 +112,9 @@ function init() {
 });
 }
 
+// Format numbers as thousands
+function formatAsThousands(num) {
+    return d3.format(",")(num);
+}
 
 window.onload = init;
