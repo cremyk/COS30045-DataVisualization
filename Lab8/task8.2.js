@@ -77,7 +77,7 @@ function init() {
                 return "#ccc";
             }
         });
-    });
+    
 
     //add victorian towns and cities
     d3.csv("VIC_city.csv").then(function(cityData) {
@@ -99,7 +99,9 @@ function init() {
         .attr("cy", function(d) {
             return projection([d.lon, d.lat])[1];
         })
-        .attr("r", "5")
+        .attr("r", function(d) {
+            return Math.sqrt(parseInt(d.population)) * 0.02;
+        })
         .style("fill", "yellow")
         .style("stroke", "gray")
         .style("stroke-width", 0.25)
@@ -110,6 +112,7 @@ function init() {
         });
     });
 });
+})
 }
 
 
