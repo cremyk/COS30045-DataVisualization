@@ -37,15 +37,15 @@ function init() {
 
             // Merge the unemployment data with GeoJSON
             for (var i = 0; i < data.length; i++) {
-                var dataLGA = data[i].LGA;   // name of state from CSV
+                var dataState = data[i].LGA;   // name of state from CSV
                 var dataValue = parseFloat(data[i].unemployed);  // unemployment rate
 
                 // Find corresponding state in GeoJSON and assign unemployment value
                 for (var j = 0; j < json.features.length; j++) {
-                    var jsonLGA = json.features[j].LGA_name;
+                    var jsonState = json.features[j].properties.LGA_name;
 
-                    if (dataLGA == jsonState) {
-                        json.features[j].properties.unemployed = dataValue;
+                    if (dataState == jsonState) {
+                        json.features[j].properties.value = dataValue;
                         break;
                     }
                 }
@@ -59,7 +59,7 @@ function init() {
                 .attr("d", path)
                 .style("fill", function(d) {
                     // Get unemployment value
-                    var value = d.properties.unemployed;
+                    var value = d.properties.value;
                     if (value) {
                         // Apply the color if value exists
                         return color(value);
@@ -67,62 +67,29 @@ function init() {
                         // If no value, color it light gray
                         return "#ccc";
                     }
-                })
+                });
 
             // Add Victorian towns and cities as circles
-            d3.csv("VIC_city.csv").then(function(cityData) {
+            d3.csv("VIC_city.csv").then(function(data) {
                 svg.selectAll("circle")
-                    .data(cityData)
+                    .data(data)
                     .enter()
                     .append("circle")
                     .attr("cx", function(d) {
-                        return projection([+d.lon, +d.lat])[0];
+                        return projection([d.lon, d.lat])[0];
                     })
                     .attr("cy", function(d) {
-                        return projection([+d.lon, +d.lat])[1];
+                        return projection([d.lon, d.lat])[1];
                     })
-                    .attr("r", function(d) {
-                        return Math.sqrt(parseInt(d.population)) * 0.02;
-                    })
-                    .style("fill", "yellow")
-                    .style("stroke", "gray")
-                    .style("stroke-width", 0.25)
-                    .style("opacity", 0.75)
-                    .append("title")
-                    .text(function(d) {
-                        return d.place + ": Pop. " + formatAsThousands(d.population);
-                    });
-            
-
-                // Add tooltip on hover
-                .on("mouseover", function(event, d) {
-                    d3.select(this)
-                        .style("stroke", "black")
-                        .style("stroke-width", "2px");
-
-                    // Display tooltip with state name and unemployment value
-                    var tooltip = d3.select("body").append("div")
-                        .attr("class", "tooltip")
-                        .style("opacity", 0);
-
-                    tooltip.transition()
-                        .duration(200)
-                        .style("opacity", .9);
-                    tooltip.html(d.properties.name + "<br/>" + "Unemployment: " + d.properties.value)
-                        .style("left", (event.pageX + 5) + "px")
-                        .style("top", (event.pageY - 28) + "px");
-                })
-                .on("mouseout", function(d) {
-                    d3.select(this)
-                        .style("stroke", "none");
-
-                    // Remove the tooltip on mouseout
-                    d3.select(".tooltip").remove();
+                    .attr("r", 5)
+                    .style("fill", "red")
+                    .style("opacity", 0.75);
                 });
-
-            });
         });
     });
 }
+            
+
+                
 
 window.onload = init;
