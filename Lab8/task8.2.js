@@ -1,7 +1,7 @@
 function init() {
     // width and height
     var w = 500;
-    var h = 300;
+    var h = 500;
 
     // define projection
     var projection = d3.geoMercator()
