@@ -18,6 +18,19 @@ function init() {
         .range(["rgb(242,240,247)", "rgb(203,201,226)", 
                 "rgb(158,154,200)", "rgb(117,107,177)", "rgb(84,39,143)"]);
 
+    // Create a div for the tooltip
+    var tooltip = d3.select("body")
+                    .append("div")
+                    .attr("class", "tooltip")
+                    .style("position", "absolute")
+                    .style("visibility", "hidden")
+                    .style("background-color", "white")
+                    .style("border", "1px solid #ccc")
+                    .style("padding", "5px")
+                    .style("border-radius", "4px")
+                    .style("font-size", "12px")
+                    .style("pointer-events", "none");
+
     // create SVG element
     var svg = d3.select("#MapOnPage")
                 .append("svg")
@@ -82,24 +95,21 @@ function init() {
                         return projection([d.lon, d.lat])[1];
                     })
                     .attr("r", 5)
-                    .style("fill", "red")
+                    .style("fill", "yellow")
                     .style("opacity", 0.75)
+                    .style("stroke", "gray")
+                    .style("stroke-width", 0.25)
                     .on("mouseover", function(event, d) {
-                        // Display tooltip with state name
                         tooltip.style("visibility", "visible")
-                               .text(d.city_name)
-                               .style("left", (event.pageX + 5) + "px")  // Position the tooltip near the mouse
-                               .style("top", (event.pageY - 28) + "px");
+                               .text( d.place);
                     })
                     .on("mousemove", function(event) {
-                        // Update tooltip position as the mouse moves
-                        tooltip.style("left", (event.pageX + 5) + "px")
-                               .style("top", (event.pageY - 28) + "px");
+                        tooltip.style("top", (event.pageY - 10) + "px")
+                               .style("left", (event.pageX + 10) + "px");
                     })
                     .on("mouseout", function() {
-                        // Hide the tooltip when mouse leaves
                         tooltip.style("visibility", "hidden");
-                    })
+                    });
                 });
         });
     });
