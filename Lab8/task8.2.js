@@ -83,7 +83,23 @@ function init() {
                     })
                     .attr("r", 5)
                     .style("fill", "red")
-                    .style("opacity", 0.75);
+                    .style("opacity", 0.75)
+                    .on("mouseover", function(event, d) {
+                        // Display tooltip with state name
+                        tooltip.style("visibility", "visible")
+                               .text(d.city_name)
+                               .style("left", (event.pageX + 5) + "px")  // Position the tooltip near the mouse
+                               .style("top", (event.pageY - 28) + "px");
+                    })
+                    .on("mousemove", function(event) {
+                        // Update tooltip position as the mouse moves
+                        tooltip.style("left", (event.pageX + 5) + "px")
+                               .style("top", (event.pageY - 28) + "px");
+                    })
+                    .on("mouseout", function() {
+                        // Hide the tooltip when mouse leaves
+                        tooltip.style("visibility", "hidden");
+                    })
                 });
         });
     });
