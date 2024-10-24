@@ -6,9 +6,6 @@ var dataset = [
     { apples: 23, oranges: 17, grapes: 43}
 ];
 
-//create keys
-var keys = ["apples", "oranges", "grapes"];
-
 //set width, height for the chart
 var w = 500;
 var h = 400;
@@ -18,7 +15,7 @@ var color = d3.scaleOrdinal(d3.schemeCategory10);
 
 //set up stack method
 var stack = d3.stack()
-                .keys(keys)
+                .keys(["apples", "oranges", "grapes"])
                 .order(d3.stackOrderDescending);
 
 //data, stacked
@@ -70,12 +67,10 @@ var rects = groups.selectAll("rect")
                     .attr("width", xScale.bandwidth());
 
 // select the svg area
-var legendsvg = d3.select("#legend")
-
-
+var Svg = d3.select("#legend")
 
 // Add one dot in the legend for each name.
-legendsvg.selectAll("mydots")
+svg.selectAll("mydots")
   .data(keys)
   .enter()
   .append("circle")
@@ -85,7 +80,7 @@ legendsvg.selectAll("mydots")
     .style("fill", function(d){ return color(d)});
 
 // Add one dot in the legend for each name.
-legendsvg.selectAll("mylabels")
+svg.selectAll("mylabels")
   .data(keys)
   .enter()
   .append("text")
