@@ -6,6 +6,9 @@ var dataset = [
     { apples: 23, oranges: 17, grapes: 43}
 ];
 
+//create keys
+var keys = ["apples", "oranges", "grapes"];
+
 //set width, height for the chart
 var w = 500;
 var h = 400;
@@ -69,8 +72,7 @@ var rects = groups.selectAll("rect")
 // select the svg area
 var legendsvg = d3.select("#legend")
 
-//create keys
-var keys = ["appples", "oranges", "grapes"];
+
 
 // Add one dot in the legend for each name.
 legendsvg.selectAll("mydots")
@@ -80,7 +82,7 @@ legendsvg.selectAll("mydots")
     .attr("cx", 100)
     .attr("cy", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
     .attr("r", 7)
-    .style("fill", function(d){ return color(d)})
+    .style("fill", function(d){ return color(d)});
 
 // Add one dot in the legend for each name.
 legendsvg.selectAll("mylabels")
@@ -92,4 +94,4 @@ legendsvg.selectAll("mylabels")
     .style("fill", function(d){ return color(d)})
     .text(function(d){ return d})
     .attr("text-anchor", "left")
-    .style("alignment-baseline", "middle")
+    .style("alignment-baseline", "middle");
