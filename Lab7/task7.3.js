@@ -34,14 +34,6 @@ var yScale = d3.scaleLinear()
                 ])
                 .range([h, 0]);
 
-//series, the array formely known as dataset
-[
-    [ [ 0, 5], [ 0, 4], [ 0, 2], [ 0, 7], [ 0, 23] ], //apples
-    [ [ 5, 15], [ 4, 16], [ 2, 21], [ 7, 30], [ 23, 40] ], //oranges
-    [ [ 15, 37], [ 16, 44], [ 21, 53], [ 30, 65], [ 40, 83] ], //apples
-]
-
-
 //create svg
 var svg = d3.select("article.content")
             .append("svg")
