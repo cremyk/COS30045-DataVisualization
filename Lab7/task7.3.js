@@ -1,6 +1,3 @@
-//define keys
-var keys = ["apples", "oranges", "grapes"];
-
 var dataset = [
     { apples: 5, oranges: 10, grapes: 22}, //blue =apples
     { apples: 4, oranges: 12, grapes: 28}, //orange =oranges
@@ -51,31 +48,6 @@ var svg = d3.select("article.content")
             .attr("width", w)
             .attr("height", h);
 
-// select the svg area
-var legendsvg = d3.select("#legend")
-
-// Add one dot in the legend for each name.
-legendsvg.selectAll("mydots")
-  .data(keys)
-  .enter()
-  .append("circle")
-    .attr("cx", 100)
-    .attr("cy", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
-    .attr("r", 7)
-    .style("fill", function(d){ return color(d)});
-
-// Add one dot in the legend for each name.
-legendsvg.selectAll("mylabels")
-  .data(keys)
-  .enter()
-  .append("text")
-    .attr("x", 120)
-    .attr("y", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
-    .style("fill", function(d){ return color(d)})
-    .text(function(d){ return d})
-    .attr("text-anchor", "left")
-    .style("alignment-baseline", "middle");
-
 //add group for each row of data
 var groups = svg.selectAll("g")
                 .data(series)
@@ -102,4 +74,30 @@ var rects = groups.selectAll("rect")
                     })
                     .attr("width", xScale.bandwidth());
 
+// select the svg area
+var legendsvg = d3.select("#legend")
 
+//create keys
+var keys = ["appples", "oranges", "grapes"];
+
+// Add one dot in the legend for each name.
+legendsvg.selectAll("mydots")
+  .data(keys)
+  .enter()
+  .append("circle")
+    .attr("cx", 100)
+    .attr("cy", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+    .attr("r", 7)
+    .style("fill", function(d){ return color(d)})
+
+// Add one dot in the legend for each name.
+legendsvg.selectAll("mylabels")
+  .data(keys)
+  .enter()
+  .append("text")
+    .attr("x", 120)
+    .attr("y", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+    .style("fill", function(d){ return color(d)})
+    .text(function(d){ return d})
+    .attr("text-anchor", "left")
+    .style("alignment-baseline", "middle")
