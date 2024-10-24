@@ -66,27 +66,34 @@ var rects = groups.selectAll("rect")
                     })
                     .attr("width", xScale.bandwidth());
 
-// select the svg area
-var Svg = d3.select("#legend")
+// Legend labels
+var legendLabels = ["Green", "Orange", "Blue"];
 
-// Add one dot in the legend for each name.
-svg.selectAll("mydots")
-  .data(keys)
-  .enter()
-  .append("circle")
-    .attr("cx", 100)
-    .attr("cy", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+// Create legend
+var legend = svg.selectAll(".legend")
+    .data(legendLabels)
+    .enter()
+    .append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d, i) {
+        return "translate(" + (w + 20) + "," + (i * 20 + 20) + ")"; // Position each legend item
+    });
+
+// Append circles to the legend
+legend.append("circle")
+    .attr("cx", 0)
+    .attr("cy", 0)
     .attr("r", 7)
-    .style("fill", function(d){ return color(d)});
+    .style("fill", function(d, i) {
+        return colors(["apples", "oranges", "grapes"][i]);
+    });
 
-// Add one dot in the legend for each name.
-svg.selectAll("mylabels")
-  .data(keys)
-  .enter()
-  .append("text")
-    .attr("x", 120)
-    .attr("y", function(d,i){ return 100 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
-    .style("fill", function(d){ return color(d)})
-    .text(function(d){ return d})
-    .attr("text-anchor", "left")
-    .style("alignment-baseline", "middle");
+// Append labels to the legend
+legend.append("text")
+    .attr("x", 15)
+    .attr("y", 4)
+    .text(function(d) {
+        return d;
+    })
+    .style("font-size", "12px")
+    .attr("alignment-baseline", "middle");
